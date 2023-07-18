@@ -41,6 +41,28 @@ void qbGradient::SetGradientThresh(double gradientThresh) {
 
 bool qbGradient::Optimize(std::vector<double> *funcLoc, double *funcVal) {
     m_currentPoint = m_startPoint;
+
+    int iterCount = 0;
+    double gradientMagnitude = 1.0;
+
+    while ((iterCount < m_maxIter) && (gradientMagnitude > m_gradientThresh)) {
+        std::vector<double> gradientVector = ComputeGradientVector();
+        gradientMagnitude = ComputeGradientMagnitude(gradientVector);
+
+        // compute new point
+        std::vector<double> newPoint = m_currentPoint;
+        for (int i = 0; i < m_nDims; ++i) {
+            newPoint[i] += -(gradientVector[i] * m_stepSize);
+        }
+
+        m_currentPoint = newPoint;
+        ++iterCount;
+    }
+
+    *funcLoc = m_currentPoint;
+    *funcVal = m_objectFcn(&m_currentPoint);
+
+    return 0;
 }
 
 double qbGradient::ComputeGradient(int dim) {
