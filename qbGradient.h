@@ -16,7 +16,7 @@ public:
 
     void SetStepSize(double stepSize);
 
-    void SetMaxIteration(int maxIterations);
+    void SetMaxIterations(int maxIterations);
 
     // function to set gradient magnitude threshold (stopping condition)
     void SetGradientThresh(double gradientThresh);
