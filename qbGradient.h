@@ -40,6 +40,9 @@ private:
 
     // gradient step size
     double m_h;
+
+    // stopping condition
+    double m_gradientThresh;
     
     std::vector<double> m_startPoint;
     std::vector<double> m_currentPoint;
